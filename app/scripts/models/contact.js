@@ -3,7 +3,7 @@ var Backbone = require('backbone');
 
 var Contact = Backbone.Model.extend({
   idAttribute:"_id",
-   urlRoot: 'http://tiny-lasagna-server.herokuapp.com/collections/kirby',
+   urlRoot: 'https://tiny-lasagna-server.herokuapp.com/collections/kirby',
   initialize: function(){
     console.log("a new contact is born");
   }
@@ -12,7 +12,7 @@ var Contact = Backbone.Model.extend({
 
 var ContactCollection = Backbone.Collection.extend({
   model: Contact,
-  url: 'http://tiny-lasagna-server.herokuapp.com/collections/kirby'
+  url: 'https://tiny-lasagna-server.herokuapp.com/collections/kirby'
 });
 
 module.exports = {
