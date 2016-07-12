@@ -3,10 +3,12 @@ var views = require('./views/contact');
 var Contact = require('./models/contact').Contact;
 var ContactCollection = require('./models/contact').ContactCollection;
 var $ = require('jquery');
-
+var $deleteButton = require('./views/contact');
 
 var allTheContacts = new ContactCollection();
 var contactListHtml = new views.ContactListView({'collection': allTheContacts});
+allTheContacts.fetch();
+
 $('#contact-list').append(contactListHtml.render().el);
 
 $('.app-form').append('Name: <input type="text" name="name"><br />');
@@ -24,7 +26,14 @@ $('.submit-button').on('click', function(event){
   allTheContacts.fetch();
 });
 
-$('.delete-button').on('click', function(event){
-  event.preventDefault();
-    model.destroy();
+  allTheContacts.on('add', function(contact){
+    var $deleteButton = $('<button class="btn btn-danger">Delete Post</button>');
+    var $newContact = $('<h1>'+ contact.get('name') +'<br />'+ '<h4>' + 'Email: ' + contact.get('email') + '</h4>' + contact.get('instagram') + '</h1><br />');
+    $('#contact-list').append($newContact).append($deleteButton);
+    $deleteButton.on('click', function(event){
+      event.preventDefault();
+      contact.destroy();
+      $newContact.hide();
+      $deleteButton.hide();
+    });
 });
